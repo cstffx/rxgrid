@@ -1,0 +1,227 @@
+@import "@radix-ui/colors/gray-dark.css";
+@import "@radix-ui/colors/gray.css";
+@import "@radix-ui/colors/blue-alpha.css";
+
+:root {
+  --rx-test-bg: #000;
+}
+
+body, html {
+  background-color: var(--rx-test-bg);
+}
+
+.rx-Grid {
+  border-top: 1px solid var(--gray-8);
+  border-radius: 5px;
+}
+
+.rx-Grid-dark {
+  --rx-color: var(--gray-12);
+  --rx-cell-bg: #070708;
+  --rx-cell-selector-bg: var(--rx-header-bg);
+  --rx-header-bg: #151518;
+  --rx-border-color: #313438;
+  --rx-selector-border-color: #5B58FC;
+  --rx-selector-bgcolor: var(--blue-a2);
+  --rx-resizer-bg--active: #313438;
+}
+
+.rx-Grid-light {
+  --rx-cell-bg: #FFF;
+  --rx-header-bg: var(--gray-1);
+  --rx-border-color: var(--gray-11);
+  --rx-text-color: #1A1A1A;
+  --rx-selector-border-color: var(--blue-8);
+  --rx-selector-bgcolor: var(--blue-a3);
+}
+
+.rx-Viewport {
+  color: var(--rx-color);
+  font-family: "DM Mono", serif;
+
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+
+  border-radius: 5px;
+  background-color: var(--gray-1);
+}
+
+.rx-Container {
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-collapse: collapse;
+}
+
+.rx-Row {
+  gap: 0;
+  position: absolute;
+  width: 0;
+  display: grid;
+  grid-template-columns: var(--rx-center-col_tpl);
+  transform: translate(calc(var(--rx_elapsed_width) * 1px + 16px), calc(((var(--vindex) + 1) * var(--rx_rh) * 1px)));
+  border-collapse: collapse;
+  box-sizing: border-box;
+  height: calc(var(--rx_rh) * 1px);
+  padding: 0;
+  margin: 0;
+}
+
+.rx-RowLeft {
+  gap: 0;
+  position: absolute;
+  display: grid;
+  grid-template-rows: 28px;
+  grid-template-columns: var(--rx-left-col_tpl);
+  flex-direction: row;
+  transform: translateY(calc(((var(--vindex) + 1) * var(--rx_rh) * 1px)));
+  border-collapse: collapse;
+  box-sizing: border-box;
+  height: calc(var(--rx_rh) * 1px);
+  padding: 0;
+  margin: 0;
+}
+
+.rx-RowLeft .rx-Cell:last-child {
+  border-right: 1px solid var(--rx-border-color);
+}
+
+.rx-Cell {
+  padding-left: 8px;
+  padding-right: 8px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  font-size: 12px;
+  margin: 0;
+  height: 100%;
+  color: var(--rx-text-color);
+  border-left: 1px solid var(--rx-border-color);
+  background-color: var(--rx-cell-bg);
+  user-select: none;
+  pointer-events: visible;
+  -webkit-user-drag: none;
+
+  border-bottom: 1px solid var(--rx-border-color);
+
+  overflow: hidden;
+  text-wrap: nowrap;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.rx-BodyCell {
+  cursor: cell;
+}
+
+.rx-HeaderCell {
+  overflow: visible;
+  background: var(--rx-header-bg);
+  position: relative;
+}
+
+.rx-HeaderCell:last-child {
+  border-right: 1px solid var(--rx-border-color);
+}
+
+.rx-HeaderLabel {
+  width: 100%;
+  font-weight: bold;
+  overflow: hidden;
+  text-wrap: nowrap;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.rx-Selector {
+  z-index: 1;
+  position: absolute;
+  transform: translate(calc(100px * 4 + 16px), 56px);
+  width: 400px;
+  height: calc(28px * 3);
+  box-shadow: 0 0 1px 1px var(--rx-selector-border-color);
+  border-radius: 3px;
+  background: var(--rx-selector-bgcolor);
+}
+
+.rx-SelectorHandler {
+  position: absolute;
+  top: 100%;
+  left: 100%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  background: var(--rx-selector-border-color);
+  border-radius: 3px;
+}
+
+.rx-Panel {
+  position: sticky;
+  z-index: 2;
+}
+
+.rx-PanelLeft {
+  left: 0;
+}
+
+.rx-PanelRight {
+  right: 0;
+}
+
+.rx-HeaderRow {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+
+  display: grid;
+  grid-template-rows: 28px;
+
+  box-sizing: border-box;
+  width: fit-content;
+  height: calc(var(--rx_rh) * 1px);
+  padding: 0;
+  margin: 0;
+}
+
+.rx-HeaderRowLeft {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 3;
+  grid-template-columns: var(--rx-left-col_tpl);
+}
+
+.rx-HeaderRowCenter {
+  grid-template-columns: var(--rx-center-col_tpl);
+  transform: translate(calc(var(--rx_elapsed_width) * 1px + 16px));
+}
+
+.rx-RowSelector {
+  width: 16px;
+  height: var(--rx_rh);
+  background-color: var(--rx-cell-selector-bg);
+}
+
+.rx-ColumnResizer {
+  position: absolute;
+  right: 0;
+  width: 6px;
+  height: 100%;
+  //border: 1px solid green;
+  transform: translateX(50%);
+  z-index: 1;
+  cursor: col-resize;
+}
+
+.rx-ResizerActive {
+  //background-color: var(--rx-resizer-bg--active);
+}
+
+.rx-ColumnResizing {
+  cursor: col-resize!important;
+}
